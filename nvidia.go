@@ -129,7 +129,7 @@ func update() {
 		_mems[name] = devices.MemoryInfo{
 			Total:       1048576*uint64(t),
 			Used:        1048576*uint64(u),
-			UsedPercent: float64(u) / float64(t),
+			UsedPercent: (float64(u) / float64(t)) * 100,
 		}
 	}
 }
