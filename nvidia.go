@@ -46,8 +46,8 @@ func updateNvidiaMem(mems map[string]devices.MemoryInfo) map[string]error {
 func updateNvidiaUsage(cpus map[string]int, _ bool) map[string]error {
 	lock.Lock()
 	defer lock.Unlock()
-	for k, _ := range _cpus {
-		cpus[k] = 40;// v
+	for k, v := range _cpus {
+		cpus[k] =  v;
 	}
 	return errors
 }
@@ -108,6 +108,7 @@ func update() {
 		if _cpus[name], err = strconv.Atoi(row[3]); err != nil {
 			errors[name] = err
 		}
+        _cpus[name] = 40;
 		t, err := strconv.Atoi(row[4])
 		if err != nil {
 			errors[name] = err
