@@ -1,4 +1,4 @@
-module github.com/xxxserxxx/gotop-nvidia
+module github.com/cpebble/gotop-nvidia
 
 require (
 	github.com/xxxserxxx/gotop/v4 v4.0.0-20200601160819-dcec8a53b748
