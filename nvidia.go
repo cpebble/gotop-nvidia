@@ -62,6 +62,12 @@ func startup(vars map[string]string) error {
 	}
 	go func() {
 		timer := time.Tick(refresh)
+        _cpus["NVidia"] = 0
+        _mems["NVidia"] = devices.MemoryInfo{
+                Total:       1,
+                Used:        1,
+                UsedPercent: 100,
+            }
 		for range timer {
 			update()
 		}
@@ -101,21 +107,24 @@ func update() {
 	lock.Lock()
 	defer lock.Unlock()
 	for _, row := range records {
-		name := "NV" // row[0] + "." + row[1]
+		name := "NVidia" // row[0] + "." + row[1]
 		if _temps[name], err = strconv.Atoi(row[2]); err != nil {
 			errors[name] = err
+            _temps[name] = 99
 		}
 		if _cpus[name], err = strconv.Atoi(row[3]); err != nil {
 			errors[name] = err
+            _cpus[name] = 99
 		}
-        _cpus[name] = 40;
 		t, err := strconv.Atoi(row[4])
 		if err != nil {
 			errors[name] = err
+            t = 20
 		}
 		u, err := strconv.Atoi(row[5])
 		if err != nil {
 			errors[name] = err
+            u = 20
 		}
 		_mems[name] = devices.MemoryInfo{
 			Total:       1048576*uint64(t),
